@@ -29,10 +29,12 @@ class Kernel_parabolic:
                 b[self.indices[i, j]] += -const * (-self.xi[i] + self.eta[j])
                 for m in range(j, i):
                     for n in range(j):
-                        A[self.indices[i, j], self.indices[m, n]] += const * self.h / 4
-                        A[self.indices[i, j], self.indices[m, n + 1]] += const * self.h / 4
-                        A[self.indices[i, j], self.indices[m + 1, n]] += const * self.h / 4
-                        A[self.indices[i, j], self.indices[m + 1, n + 1]] += const * self.h / 4
+                        A[self.indices[i, j], self.indices[m, n]] += const * self.h ** 2 / 4
+                        A[self.indices[i, j], self.indices[m, n + 1]] += const * self.h ** 2 / 4
+                        A[self.indices[i, j], self.indices[m + 1, n]] += const * self.h ** 2 / 4
+                        A[self.indices[i, j], self.indices[m + 1, n + 1]] += const * self.h ** 2 / 4
+        # print(A[10])
+        # print(b[10])
         self.kernel = np.linalg.solve(A, b)
 
 if __name__ == "__main__":
