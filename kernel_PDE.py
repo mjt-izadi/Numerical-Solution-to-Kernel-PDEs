@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.special import i1
 import matplotlib.pyplot as plt
 
 class Kernel_parabolic:
@@ -24,30 +25,36 @@ class Kernel_parabolic:
         b = np.zeros(self.N ** 2)
         for j in range(self.N):
             for i in range(j, 2 * self.N - j - 1):
-                A[self.indices[i, j], self.indices[i, j]] += -1.0
-                b[self.indices[i, j]] += -const * (-self.xi[i] + self.eta[j])
+                id = self.indices[i, j]
+                A[id, id] += -1.0
+                b[id] += -const * (-self.xi[i] + self.eta[j])
                 for m in range(j, i):
                     for n in range(j):
-                        A[self.indices[i, j], self.indices[m, n]] += const * self.h ** 2 / 4
-                        A[self.indices[i, j], self.indices[m, n + 1]] += const * self.h ** 2 / 4
-                        A[self.indices[i, j], self.indices[m + 1, n]] += const * self.h ** 2 / 4
-                        A[self.indices[i, j], self.indices[m + 1, n + 1]] += const * self.h ** 2 / 4
+                        A[id, self.indices[m, n]] += const * self.h ** 2 / 4
+                        A[id, self.indices[m, n + 1]] += const * self.h ** 2 / 4
+                        A[id, self.indices[m + 1, n]] += const * self.h ** 2 / 4
+                        A[id, self.indices[m + 1, n + 1]] += const * self.h ** 2 / 4
         self.kernel = np.linalg.solve(A, b)
 
     def calculate_gain(self):
-        ij = np.array([[self.N + n - 1, self.N - n - 1] for n in range(self.N)])
-        self.y = (self.xi[ij[:, 0]] - self.eta[ij[:, 1]]) / 2
-        gain_indices = [self.indices[i, j] for i, j in ij]
-        self.gain = self.kernel[gain_indices]            
+        id = np.array([[self.N + n - 1, self.N - n - 1] for n in range(self.N)])
+        self.y = (self.xi[id[:, 0]] - self.eta[id[:, 1]]) / 2
+        gain_indices = [self.indices[i, j] for i, j in id]
+        self.gain = self.kernel[gain_indices]
+        self.y_analytical = np.linspace(0.0, 1.0, 100)
+        Bessel_arg = np.sqrt(self.lam * (1 - np.square(self.y_analytical))) + 1e-9
+        self.gain_analytical = -self.lam * self.y_analytical * (i1(Bessel_arg)) / Bessel_arg
 
 
 if __name__ == "__main__":
-    N = 50
-    k1 = Kernel_parabolic(25.0, 0.0, N)
-    k1.calculate_kernel_xieta()
-    k1.calculate_gain()
-
+    lambdas = [10, 15, 20, 25]
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
-    ax1.plot(k1.y, k1.gain)
+    for lam in lambdas:
+        k1 = Kernel_parabolic(lam=lam, c=0.0, N=25)
+        k1.calculate_kernel_xieta()
+        k1.calculate_gain()
+
+        # ax1.plot(k1.y_analytical, k1.gain_analytical)
+        ax1.plot(k1.y, k1.gain)
     plt.show()
