@@ -47,14 +47,12 @@ class Kernel_parabolic:
 
 
 if __name__ == "__main__":
-    lambdas = [10, 15, 20, 25]
+    k1 = Kernel_parabolic(lam=10.0, c=0.0, N=15)
+    k1.calculate_kernel_xieta()
+    k1.calculate_gain()
+
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
-    for lam in lambdas:
-        k1 = Kernel_parabolic(lam=lam, c=0.0, N=25)
-        k1.calculate_kernel_xieta()
-        k1.calculate_gain()
-
-        # ax1.plot(k1.y_analytical, k1.gain_analytical)
-        ax1.plot(k1.y, k1.gain)
+    ax1.plot(k1.y_analytical, k1.gain_analytical)
+    ax1.scatter(k1.y, k1.gain)
     plt.show()
