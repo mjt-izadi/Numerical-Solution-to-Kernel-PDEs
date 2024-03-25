@@ -42,8 +42,8 @@ class Kernel_parabolic:
         gain_indices = [self.indices[i, j] for i, j in id]
         self.gain = self.kernel[gain_indices]
         self.y_analytical = np.linspace(0.0, 1.0, 100)
-        Bessel_arg = np.sqrt(self.lam * (1 - np.square(self.y_analytical))) + 1e-9
-        self.gain_analytical = -self.lam * self.y_analytical * (i1(Bessel_arg)) / Bessel_arg
+        Bessel_arg = np.sqrt((self.lam + self.c) * (1 - np.square(self.y_analytical))) + 1e-9
+        self.gain_analytical = -(self.lam + self.c) * self.y_analytical * (i1(Bessel_arg)) / Bessel_arg
 
 
 if __name__ == "__main__":
