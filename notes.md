@@ -25,12 +25,11 @@ $$\frac{\partial^2 k(\xi, \eta)}{\partial \xi \partial \eta} = \frac{\lambda + c
 Now, the second-order mixed derivative can be integrated.
 
 <p align="center">
-  <img src="Figures/kernel1.png" width="400" alt="Kernel domains"/>
+  <img src="Figures/kernel1.png" alt="Kernel domains"/>
 </p>
 <p align="center">
   Kernel domain in the different variables
 </p>
-
 
 ### Transform differential equation to integral equation
 Integrate the first equation with respect to $\eta$ from $0$ to $\eta$ and apply the second boundary condition to get:
@@ -40,3 +39,10 @@ $$k(\xi, \eta) = -\frac{\lambda + c}{4}(\xi - \eta) + \frac{\lambda + c}{4}\int_
 
 ### Discretization of doamin
 Now the partial differential equation has taken the form of an integral equation. To find an approximate solution numerically, the triangular spatial domain $(\xi, \eta)$ of the kernel functions is discretized into computational points on an equally-spaced square grid and the integrals are approximated by the use of a composite trapezoidal rule. Hence, the integral equation is discretized into a system of linear equations that can be solved efficiently.
+
+<p align="center">
+  <img src="Figures/kernel2.png" alt="Kernel domain discretization"/>
+</p>
+<p align="center">
+  Kernel domain discretization
+</p>
