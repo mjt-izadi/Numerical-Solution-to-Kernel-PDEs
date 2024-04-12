@@ -18,11 +18,25 @@ $$w(x, t) = u(x, t) - \int_0^x k(x,y)u(y,t)dy$$
 that maps $u(x, t)$ onto $w(x, t)$. In such transformations, $k(x,y)$ is called the kernel of transformation. $w(x, t)$ is the state variable of a *target* system whose stability is already stablished.
 
 The following steps are considered to find a numerical solution of the Kernel function:
-1. Consider the change of variables $\xi = x + y$ and $\eta = -x + y$. The PDE takes the following form:
-$$\frac{\partial^2 k(\xi, \eta)}{\partial \xi \partial \eta} = \frac{\lambda + c}{4} k(\xi, \eta) \\ k(\xi, \xi) = 0 \\ k(\xi, 0) = -\frac{\lambda + c}{4}\xi$$
 
-2. Integrate the first equation with respect to $\eta$ from $0$ to $\eta$ and apply the second boundary condition to get:
+### Change of variables
+Consider the change of variables $\xi = x + y$ and $\eta = -x + y$. The PDE takes the following form:
+$$\frac{\partial^2 k(\xi, \eta)}{\partial \xi \partial \eta} = \frac{\lambda + c}{4} k(\xi, \eta) \\ k(\xi, \xi) = 0 \\ k(\xi, 0) = -\frac{\lambda + c}{4}\xi$$
+Now, the second-order mixed derivative can be integrated.
+
+<p align="center">
+  <img src="Figures/kernel1.png" width="400" alt="Kernel domains"/>
+</p>
+<p align="center">
+  Kernel domain in the different variables
+</p>
+
+
+### Transform differential equation to integral equation
+Integrate the first equation with respect to $\eta$ from $0$ to $\eta$ and apply the second boundary condition to get:
 $$\frac{\partial k(\xi, \eta)}{\partial \xi} = -\frac{\lambda + c}{4} + \frac{\lambda + c}{4}\int_0^{\eta} k(\xi, \sigma)d\sigma$$
-3. Integrate this equation with respect to $\xi$ from $\eta$ to $\xi$ and apply the first boundary condition to get:
+Then, integrate this equation with respect to $\xi$ from $\eta$ to $\xi$ and apply the first boundary condition to get:
 $$k(\xi, \eta) = -\frac{\lambda + c}{4}(\xi - \eta) + \frac{\lambda + c}{4}\int_{\eta}^{\xi}\int_0^{\eta} k(\rho, \sigma) d\sigma d\rho$$
-4. Now the partial differential equation has taken the form of an integral equation. To find an approximate solution numerically, the triangular spatial domain $(\xi, \eta)$ of the kernel functions is discretized into computational points on an equally-spaced square grid and the integrals are approximated by the use of a composite trapezoidal rule. Hence, the integral equation is discretized into a system of linear equations that can be solved efficiently.
+
+### Discretization of doamin
+Now the partial differential equation has taken the form of an integral equation. To find an approximate solution numerically, the triangular spatial domain $(\xi, \eta)$ of the kernel functions is discretized into computational points on an equally-spaced square grid and the integrals are approximated by the use of a composite trapezoidal rule. Hence, the integral equation is discretized into a system of linear equations that can be solved efficiently.
