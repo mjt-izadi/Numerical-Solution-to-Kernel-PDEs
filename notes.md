@@ -36,9 +36,10 @@ Integrate the first equation with respect to $\eta$ from $0$ to $\eta$ and apply
 $$\frac{\partial k(\xi, \eta)}{\partial \xi} = -\frac{\lambda + c}{4} + \frac{\lambda + c}{4}\int_0^{\eta} k(\xi, \sigma)d\sigma$$
 Then, integrate this equation with respect to $\xi$ from $\eta$ to $\xi$ and apply the first boundary condition to get:
 $$k(\xi, \eta) = -\frac{\lambda + c}{4}(\xi - \eta) + \frac{\lambda + c}{4}\int_{\eta}^{\xi}\int_0^{\eta} k(\rho, \sigma) d\sigma d\rho$$
+Now the partial differential equation has taken the form of an integral equation. 
 
-### Discretization of doamin
-Now the partial differential equation has taken the form of an integral equation. To find an approximate solution numerically, the triangular spatial domain $(\xi, \eta)$ of the kernel functions is discretized into computational points on an equally-spaced square grid and the integrals are approximated by the use of a composite trapezoidal rule. Hence, the integral equation is discretized into a system of linear equations that can be solved efficiently.
+### Discretization of domin
+To find an approximate solution to the integral equation numerically, the triangular spatial domain of the kernel function in $(\xi, \eta)$ coordinates is discretized into computational points on an equally-spaced square grid, as shown in the following figure. 
 
 <p align="center">
   <img src="Figures/kernel2.png" alt="Kernel domain discretization"/>
@@ -46,3 +47,8 @@ Now the partial differential equation has taken the form of an integral equation
 <p align="center">
   Kernel domain discretization
 </p>
+
+Then, the integrals of the last equation are approximated by the use of the composite trapezoidal rule, given as:
+$$k_{i, j} = -\frac{\lambda + c}{4}(\xi_i - \eta_j) + \frac{\lambda + c}{4}\left(\frac{\Delta^2}{4}\right)\sum_{m=j}^{i-1}\sum_{n=0}^{j-1}\left(k_{m, n} + k_{m, n + 1} + k_{m + 1, n} + k_{m + 1, n + 1}\right)$$
+
+Hence, the integral equation is discretized into a system of linear equations that can be solved efficiently.
