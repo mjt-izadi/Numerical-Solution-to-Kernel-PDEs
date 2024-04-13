@@ -2,7 +2,7 @@
 Consider the following parabolic partial differential equation (PDE):
 $$\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2} + \lambda u$$
 with boundary conditions
-$$u(0, t) = 0 \\ u(1,t) = U(t)$$
+$$u(0, t) = 0, \\ u(1,t) = U(t)$$
 where $u(x, t)$ depends on $x \in [0, 1]$ and, often interpreted as time, $t$. This equation can represent a mathematical model of a reaction-diffusion system in one spatial dimension. The constant $\lambda$ is the (linear) reaction term that can make the *system* unstable. In fact, the infinite number of the eigenvalues of the system are given by $\lambda - n^2\pi^2$ for $n = 1, 2, \cdots$, and for $\lambda > \pi^2$, the system is unstable. The control problem is to find a baoundary control $U(t)$ applied at $x = 1$ that stabilizes the system.
 
 Through Backstepping approach, the feedback control law is found to be:
@@ -38,7 +38,7 @@ Then, integrate this equation with respect to $\xi$ from $\eta$ to $\xi$ and app
 $$k(\xi, \eta) = -\frac{\lambda + c}{4}(\xi - \eta) + \frac{\lambda + c}{4}\int_{\eta}^{\xi}\int_0^{\eta} k(\rho, \sigma) d\sigma d\rho$$
 Now the partial differential equation has taken the form of an integral equation. 
 
-### Discretization of domin
+### Discretize the domin and solve system of equations
 To find an approximate solution to the integral equation numerically, the triangular spatial domain of the kernel function in $(\xi, \eta)$ coordinates is discretized into computational points on an equally-spaced square grid, as shown in the following figure. 
 
 <p align="center">
@@ -49,6 +49,5 @@ To find an approximate solution to the integral equation numerically, the triang
 </p>
 
 Then, the integrals of the last equation are approximated by the use of the composite trapezoidal rule, given as:
-$$k_{i, j} = -\frac{\lambda + c}{4}(\xi_i - \eta_j) + \frac{\lambda + c}{4}\left(\frac{\Delta^2}{4}\right)\sum_{m=j}^{i-1}\sum_{n=0}^{j-1}\left(k_{m, n} + k_{m, n + 1} + k_{m + 1, n} + k_{m + 1, n + 1}\right)$$
-
-Hence, the integral equation is discretized into a system of linear equations that can be solved efficiently.
+$$k_{i, j} = -\frac{\lambda + c}{4}(\xi_i - \eta_j) + \frac{\lambda + c}{4}\left(\frac{h^2}{4}\right)\sum_{m=j}^{i-1}\sum_{n=0}^{j-1}\left(k_{m, n} + k_{m, n + 1} + k_{m + 1, n} + k_{m + 1, n + 1}\right)$$
+where $k_{i, j} = k(\xi_i, \eta_j)$ is the value of the discretized kernel function and $h = 1 / (N - 1)$ is the grid size. Hence, the integral equation is discretized into a system of linear equations that can be solved efficiently.
