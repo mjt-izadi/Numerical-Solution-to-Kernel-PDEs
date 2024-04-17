@@ -20,7 +20,7 @@ that maps $u(x, t)$ onto $w(x, t)$. In such transformations, $k(x,y)$ is called 
 The following steps are considered to find a numerical solution of the Kernel function:
 
 ### Change of variables
-Consider the change of variables $\xi = x + y$ and $\eta = -x + y$. The PDE takes the form:
+Consider the change of variables $\xi = x + y$ and $\eta = x - y$. The PDE takes the form:
 $$\frac{\partial^2 k(\xi, \eta)}{\partial \xi \partial \eta} = \frac{\lambda + c}{4} k(\xi, \eta)$$
 with boundary conditions
  $$k(\xi, \xi) = 0, \ \ k(\xi, 0) = -\frac{\lambda + c}{4}\xi$$
@@ -55,11 +55,19 @@ $$k_{i, j} = -\frac{\lambda + c}{4}(\xi_i - \eta_j) + \frac{\lambda + c}{4}\left
 for $j = 0, 1, \cdots, N - 1$ and $i = j, j + 1, \cdots, 2N - j - 1$. In this equation, $k_{i, j} = k(\xi_i, \eta_j)$ is the value of the discretized kernel function and $h = 1 / (N - 1)$ is the grid size. When written for all grid points, these equations form a system of linear equations that can be solved efficiently.
 
 ## Choosing a value for $N$
-For a given $N$, there are about $N^2$ equations to solve, therefore, this value determines the trade-off between the accuracy of the numerical method and its computattional cost. The following figure shows the value of the kernel functions at a boundary point for different grid-sizes. As $N$ increases, the value converges. Therefore, a grid-size of about #N = 25# seems to be a good choice.
+For a given $N$, there are about $N^2$ equations to solve, therefore, this value determines the trade-off between the accuracy of the numerical method and its computational cost. The following figure shows, for different grid-sizes, the value of the kernel function at a boundary point with a converging behaviour for $\lambda = 10$ and $c = 0$. A grid-size of about $N = 25$ seems to be a good choice.
 
 <p align="center">
   <img src="Figures/accuracy.png" alt="Accuracy vs grid size"/>
 </p>
 <p align="center">
   Accuracy vs grid size
+</p>
+
+The following figure shows the numerical solution to the kernel PDEs for $\lambda = 10$, $c = 0$ and selected grid-size $N = 25$.
+<p align="center">
+  <img src="Figures/kernel_contour.png" alt="kernel contour"/>
+</p>
+<p align="center">
+  The kernel function
 </p>

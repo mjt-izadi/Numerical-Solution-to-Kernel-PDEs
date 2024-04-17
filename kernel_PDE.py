@@ -47,6 +47,13 @@ class Kernel_parabolic:
         # the small float is added to avoid division by zero
         self.gain_analytical = -(self.lam + self.c) * self.y_analytical *\
             (i1(Bessel_arg)) / Bessel_arg
+        
+    def generate_tricontour_data(self):
+        # the data required to genrate a contour (tricontourf) plot of the kernel function
+        id = np.array([[i, j] for j in range(self.N) for i in range(j, 2 * self.N - j - 1, 2)])
+        self.trisurf_x = (self.xi[id[:, 0]] + self.eta[id[:, 1]])/2
+        self.trisurf_y = (self.xi[id[:, 0]] - self.eta[id[:, 1]])/2
+        self.trisurf_k = [self.kernel[self.indices[i, j]] for i, j in id]
 
 
 if __name__ == "__main__":
@@ -68,14 +75,23 @@ if __name__ == "__main__":
     # plt.tight_layout()
     # plt.savefig("Figures/accuracy.png")
 
+    # # to plot kernel contour
+    # k1 = Kernel_parabolic(lam=10.0, c=0.0, N=25)
+    # k1.calculate_kernel_xieta()
+    # k1.generate_tricontour_data()
+    # fig = plt.figure(figsize=(5, 4))
+    # ax1 = fig.add_subplot(111, aspect = 1)
+    # contour = ax1.tricontourf(k1.trisurf_x, k1.trisurf_y, k1.trisurf_k, 50)
+    # fig.colorbar(contour)
+    # ax1.set_xlabel(r'$x$')
+    # ax1.set_ylabel(r'$y$')
+    # plt.tight_layout()
+    # # plt.show()
+    # plt.savefig("Figures/kernel_contour.png")
 
-
-
-    k1 = Kernel_parabolic(lam=10.0, c=0.0, N=15)
-    k1.calculate_kernel_xieta()
-    k1.calculate_gain()
-
-    fig = plt.figure()
-    ax1 = fig.add_subplot(111)
-    ax1.scatter(k1.y, k1.gain - k1.gain_analytical, marker='x')
-    plt.show()
+    # k1.calculate_gain()
+    # fig = plt.figure()
+    # ax1 = fig.add_subplot(111)
+    # ax1.scatter(k1.y, k1.gain - k1.gain_analytical, marker='x')
+    # plt.show()
+    pass
