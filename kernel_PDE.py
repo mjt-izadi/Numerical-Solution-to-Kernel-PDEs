@@ -71,7 +71,7 @@ if __name__ == "__main__":
     # ax1 = fig.add_subplot(111)
     # ax1.plot(grid_size, k_vs_N, marker='x')
     # ax1.set_xlabel(r'$N$')
-    # ax1.set_ylabel(r'$k(1.5, 0.5)$')
+    # ax1.set_ylabel(r'$\bar{k}(1.5, 0.5)$')
     # plt.tight_layout()
     # plt.savefig("Figures/accuracy.png")
 
@@ -89,9 +89,9 @@ if __name__ == "__main__":
     # # plt.show()
     # plt.savefig("Figures/kernel_contour.png")
 
-    # k1.calculate_gain()
-    # fig = plt.figure()
-    # ax1 = fig.add_subplot(111)
-    # ax1.scatter(k1.y, k1.gain - k1.gain_analytical, marker='x')
-    # plt.show()
+    # # k1.calculate_gain()
+    # # fig = plt.figure()
+    # # ax1 = fig.add_subplot(111)
+    # # ax1.scatter(k1.y, k1.gain - k1.gain_analytical, marker='x')
+    # # plt.show()
     pass
