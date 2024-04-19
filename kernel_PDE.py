@@ -73,7 +73,8 @@ if __name__ == "__main__":
     # ax1.set_xlabel(r'$N$')
     # ax1.set_ylabel(r'$\bar{k}(1.5, 0.5)$')
     # plt.tight_layout()
-    # plt.savefig("Figures/accuracy.png")
+    # # plt.savefig("Figures/accuracy.png")
+    # plt.show()
 
     # # to plot kernel contour
     # k2 = Kernel_parabolic(lam=10.0, c=0.0, N=25)
@@ -86,23 +87,40 @@ if __name__ == "__main__":
     # ax1.set_xlabel(r'$x$')
     # ax1.set_ylabel(r'$y$')
     # plt.tight_layout()
-    # # plt.show()
-    # plt.savefig("Figures/kernel_contour.png")
-
-    #### to check accuracy for different values of N
-    k3 = Kernel_parabolic(lam=10.0, c=0.0, N=25)
-    k3.calculate_kernel_xieta()
-    k3.calculate_gain()
-    fig = plt.figure(figsize=(5, 3))
-    ax1 = fig.add_subplot(111)
-    ax1.scatter(k3.y, k3.gain, marker='+', color='darkblue',
-                label='Numerical Approximation')
-    ax1.plot(k3.y_analytical, k3.gain_analytical, label='Analytical Solution')
-    ax1.legend()
-    ax1.set_xlabel(r'$y$')
-    ax1.set_ylabel(r'$k(1, y)$')
-    plt.tight_layout()
-    plt.savefig("Figures/accuracy_vs_analytical.png")
+    # # plt.savefig("Figures/kernel_contour.png")
     # plt.show()
 
+    # # to check accuracy compared to analytical solution
+    # k3 = Kernel_parabolic(lam=10.0, c=0.0, N=25)
+    # k3.calculate_kernel_xieta()
+    # k3.calculate_gain()
+    # fig = plt.figure(figsize=(5, 3))
+    # ax1 = fig.add_subplot(111)
+    # ax1.scatter(k3.y, k3.gain, marker='+', color='darkblue',
+    #             label='Numerical Approximation')
+    # ax1.plot(k3.y_analytical, k3.gain_analytical, label='Analytical Solution')
+    # ax1.legend()
+    # ax1.set_xlabel(r'$y$')
+    # ax1.set_ylabel(r'$k(1, y)$')
+    # plt.tight_layout()
+    # plt.savefig("Figures/accuracy_vs_analytical.png")
+    # # plt.show()
+
+    # # to plot Fig 4.2 from 
+    # # Boundary Control of PDEs: A Course on Backstepping Designs
+    # lams = [10, 15, 20, 25]
+    # fig = plt.figure(figsize=(5, 4))
+    # ax1 = fig.add_subplot(111)
+    # for lam in lams:
+    #     k4 = Kernel_parabolic(lam=lam, c=0.0, N=25)
+    #     k4.calculate_kernel_xieta()
+    #     k4.calculate_gain()
+    #     ax1.plot(k4.y, k4.gain, label=r'$\lambda='+str(lam)+'$')
+    # ax1.legend()
+    # ax1.set_xlabel(r'$y$')
+    # ax1.set_ylabel(r'$k(1, y)$')
+    # ax1.grid()
+    # plt.tight_layout()
+    # plt.savefig("Figures/fig_4_2.png")
+    # # plt.show()
     pass

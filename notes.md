@@ -33,14 +33,14 @@ where $\bar{k}(\xi, \eta)$ is the kernel function $k(x, y)$ in the new spatial v
   Kernel domain in the different variables
 </p>
 
-### Transform differential equation to integral equation
+### Transformation to integral equation
 Integrate the first equation with respect to $\eta$ from $0$ to $\eta$ and apply the second boundary condition to get:
 $$\frac{\partial \bar{k}(\xi, \eta)}{\partial \xi} = -\frac{\lambda + c}{4} + \frac{\lambda + c}{4}\int_0^{\eta} \bar{k}(\xi, \sigma)d\sigma$$
 Then, integrate this equation with respect to $\xi$ from $\eta$ to $\xi$ and apply the first boundary condition to get:
 $$\bar{k}(\xi, \eta) = -\frac{\lambda + c}{4}(\xi - \eta) + \frac{\lambda + c}{4}\int_{\eta}^{\xi}\int_0^{\eta} \bar{k}(\rho, \sigma) d\sigma d\rho$$
 Now the partial differential equation has taken the form of an integral equation. 
 
-### Discretize the domin and solve system of equations
+### Discretization of the domin and system of equations
 To find an approximate solution to the integral equation numerically, the triangular spatial domain of the kernel function in $(\xi, \eta)$ coordinates is discretized into computational points on an equally-spaced square grid, as shown in the following figure. 
 
 <p align="center">
@@ -54,7 +54,7 @@ Then, the integrals of the last equation are approximated by the use of the comp
 $$\bar{k}_{i, j} = -\frac{\lambda + c}{4}(\xi_i - \eta_j) + \frac{\lambda + c}{4}\left(\frac{h^2}{4}\right)\sum_{m=j}^{i-1}\sum_{n=0}^{j-1}\left(\bar{k}_{m, n} + \bar{k}_{m, n + 1} + \bar{k}_{m + 1, n} + \bar{k}_{m + 1, n + 1}\right)$$
 for $j = 0, 1, \cdots, N - 1$ and $i = j, j + 1, \cdots, 2N - j - 1$. In this equation, $\bar{k}_{i, j} = \bar{k}(\xi_i, \eta_j)$ is the value of the discretized kernel function and $h = 1 / (N - 1)$ is the grid size. When written for all grid points, these equations form a system of linear equations that can be solved efficiently.
 
-## Choosing a value for $N$
+### Choosing a value for $N$
 For a given $N$, there are about $N^2$ equations to solve, therefore, this value determines the trade-off between the accuracy of the numerical method and its computational cost. The following figure shows, for different grid-sizes, the value of the kernel function at a boundary point with a converging behaviour for $\lambda = 10$ and $c = 0$. A grid-size of about $N = 25$ seems to be a good choice.
 
 <p align="center">
@@ -79,4 +79,13 @@ An analytical solution is given in the literature for specific cases, such as th
 </p>
 <p align="center">
   Comparison of numerical and analytical solutions
+</p>
+
+As a final result, control gains $k(1, y)$ for different values of $\lambda$ are show in the following figure for $c = 0$ and $N = 25$. This is similar to the Figure 4.2 of the book by [Krstic ans Smyshlyaev (2008)](https://epubs.siam.org/doi/book/10.1137/1.9780898718607).
+
+<p align="center">
+  <img src="Figures/fig_4_2.png" alt="Control gain"/>
+</p>
+<p align="center">
+  Control gain
 </p>
