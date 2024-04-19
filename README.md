@@ -7,6 +7,8 @@ In this method, an integral transformation is employed to map the evolution of t
 
 This repository is an implementation of a numerical method proposed by [Jadachowski *et el.* (2012)](https://doi.org/10.3182/20120215-3-AT-3016.00141) to approximate the solution of the kernel PDE.
 
+See [Notes](/notes.md) for a description of the approach and a few examples.
+
 <p align="center">
   <img src="Figures/kernel_contour.png" alt="kernel contour"/>
 </p>
