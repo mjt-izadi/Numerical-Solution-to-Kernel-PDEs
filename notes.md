@@ -64,10 +64,19 @@ For a given $N$, there are about $N^2$ equations to solve, therefore, this value
   Accuracy vs grid size
 </p>
 
+## Results
 The following figure shows the numerical solution to the kernel PDEs $k(x, y)$ for $\lambda = 10$, $c = 0$ and selected grid-size $N = 25$.
 <p align="center">
   <img src="Figures/kernel_contour.png" alt="kernel contour"/>
 </p>
 <p align="center">
   The kernel function
+</p>
+
+An analytical solution is given in the literature for specific cases, such as this case, in terms of Bessel function. The following figure compares the numerical solution with the analytical solution for $\lambda = 10$, $c = 0$ and $N = 25$.
+<p align="center">
+  <img src="Figures/accuracy_vs_analytical.png" alt="Numerical vs analytical"/>
+</p>
+<p align="center">
+  Comparison of numerical and analytical solutions
 </p>

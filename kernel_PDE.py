@@ -41,7 +41,7 @@ class Kernel_parabolic:
         self.y = (self.xi[id[:, 0]] - self.eta[id[:, 1]]) / 2
         gain_indices = [self.indices[i, j] for i, j in id]
         self.gain = self.kernel[gain_indices]
-        self.y_analytical = np.linspace(0.0, 1.0, self.N)
+        self.y_analytical = np.linspace(0.0, 1.0, 200)
         Bessel_arg = np.sqrt((self.lam + self.c) *\
                              (1 - np.square(self.y_analytical))) + 1e-9
         # the small float is added to avoid division by zero
@@ -76,12 +76,12 @@ if __name__ == "__main__":
     # plt.savefig("Figures/accuracy.png")
 
     # # to plot kernel contour
-    # k1 = Kernel_parabolic(lam=10.0, c=0.0, N=25)
-    # k1.calculate_kernel_xieta()
-    # k1.generate_tricontour_data()
+    # k2 = Kernel_parabolic(lam=10.0, c=0.0, N=25)
+    # k2.calculate_kernel_xieta()
+    # k2.generate_tricontour_data()
     # fig = plt.figure(figsize=(5, 4))
     # ax1 = fig.add_subplot(111, aspect = 1)
-    # contour = ax1.tricontourf(k1.trisurf_x, k1.trisurf_y, k1.trisurf_k, 50)
+    # contour = ax1.tricontourf(k2.trisurf_x, k2.trisurf_y, k2.trisurf_k, 50)
     # fig.colorbar(contour)
     # ax1.set_xlabel(r'$x$')
     # ax1.set_ylabel(r'$y$')
@@ -89,9 +89,20 @@ if __name__ == "__main__":
     # # plt.show()
     # plt.savefig("Figures/kernel_contour.png")
 
-    # # k1.calculate_gain()
-    # # fig = plt.figure()
-    # # ax1 = fig.add_subplot(111)
-    # # ax1.scatter(k1.y, k1.gain - k1.gain_analytical, marker='x')
-    # # plt.show()
+    #### to check accuracy for different values of N
+    k3 = Kernel_parabolic(lam=10.0, c=0.0, N=25)
+    k3.calculate_kernel_xieta()
+    k3.calculate_gain()
+    fig = plt.figure(figsize=(5, 3))
+    ax1 = fig.add_subplot(111)
+    ax1.scatter(k3.y, k3.gain, marker='+', color='darkblue',
+                label='Numerical Approximation')
+    ax1.plot(k3.y_analytical, k3.gain_analytical, label='Analytical Solution')
+    ax1.legend()
+    ax1.set_xlabel(r'$y$')
+    ax1.set_ylabel(r'$k(1, y)$')
+    plt.tight_layout()
+    plt.savefig("Figures/accuracy_vs_analytical.png")
+    # plt.show()
+
     pass
