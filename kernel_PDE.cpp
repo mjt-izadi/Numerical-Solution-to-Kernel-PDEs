@@ -38,16 +38,12 @@ public:
     }
 
     void calculateGain() {
-        MatrixXi id(N, 2);
-        for (int n = 0; n < N; ++n) {
-            id(n, 0) = N + n - 1;
-            id(n, 1) = N - n - 1;
-        }
-        y = (xi[id.col(0)] - eta[id.col(1)]) / 2;
+        y = VectorXd::Zero(N);
         gain = VectorXd::Zero(N);
-        for (int i = 0; i < N; ++i) {
-            int idx = indices(id(i, 0), id(i, 1));
-            gain(i) = kernel(idx);
+        for (int n = 0; n < N; ++n) {
+            y(n) = (xi(N + n - 1) - eta(N - n - 1)) / 2;
+            int idx = indices(N + n - 1, N - n - 1);
+            gain(n) = kernel(idx);
         }
     }
 
